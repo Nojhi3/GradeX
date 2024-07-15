@@ -36,4 +36,3 @@ def login():
     return f"Done!!"
 
 
-app.run(host="localhost", port=5000)
