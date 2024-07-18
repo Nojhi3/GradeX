@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradeX</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/bit.png') }}" type="image/x-icon">    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='stats.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+
+</head>
+<body>
+    <header class="header">
+        <div class="container ">
+            <div class = 'logo' >
+                <img src="{{ url_for('static', filename='images/bit-logoo.webp') }}" alt="Institute Logo"> 
+        </div>
+    </div>
+    </header>
+    <h1>Welcome to the dashboard</h1>
+    <h3>MAX MARKS SCORED IN {{ sub_code }} {{ max_marks }}<h3>
+        <br>
+    <h3>NO of students failed in  {{ sub_code }}  {{ failed }}</h3>
+
+
+    
+
+
+<div id='bar'>
+    <canvas id="myChart"></canvas>
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar', // Change chart type if needed (e.g., 'line')
+            data: {{ charts[index][0] | tojson }}
+        });
+    </script>
+</div>
+    
+
+    
+</body>
+</html>
