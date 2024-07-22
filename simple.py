@@ -32,7 +32,7 @@ def get_failed(index):
     cur.execute(f'select count(*) as failed from student_marks where {index} < 60')
     data = cur.fetchall()
     print(data[0][0])
-    return data
+    return data[0]
 
 def process_chart(data,index):
     labels = []
@@ -123,9 +123,16 @@ def login_complete():
 def calc():
     return render_template("calci.html")
 
-@app.route('/max',methods=["GET"])
-def max():
-    return render_template('max.html')
+@app.route('/max/<int:index>',methods=["GET"])
+def max(index):
+    data = get_data()
+    sub_code = get_subcode(index)
+    max_marks = get_max_marks(sub_code)
+    failed = get_failed(sub_code)
+    chart = []
+    for i in range(1,6):
+        chart.append(process_chart(data,i))
+    return render_template('max.html', charts=chart,index=index,max_marks=max_marks[0], sub_code=sub_code, failed=failed[0])
 
 
 @app.route('/stats/<int:index>', methods=["GET"])
